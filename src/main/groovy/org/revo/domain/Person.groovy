@@ -1,6 +1,9 @@
 package org.revo.domain
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonView
+import org.hibernate.validator.constraints.Email
+import org.hibernate.validator.constraints.URL
 import org.revo.RevoView
 import org.springframework.data.annotation.Id
 import org.springframework.data.geo.Point
@@ -17,22 +20,25 @@ class Person {
     String id
     @JsonView(RevoView.PersonView.class)
     String name
+    @Email(message = "not a valid email")
     @JsonView(RevoView.PersonView.class)
     String email
     @JsonView(RevoView.PersonView.class)
     String password
     @JsonView(RevoView.PersonView.class)
     String phone
+    @URL
     @JsonView(RevoView.PersonView.class)
     String image
     @JsonView(RevoView.PersonView.class)
     String moreInfo
     @JsonView(RevoView.PersonView.class)
-    Point addresses
+    String addresses
     @JsonView(RevoView.PersonView.class)
     Point location
     @DBRef
     @JsonView(RevoView.PersonChild.class)
+    @JsonManagedReference
     Set<Child> children
     @JsonView(RevoView.PersonView.class)
     String queueName

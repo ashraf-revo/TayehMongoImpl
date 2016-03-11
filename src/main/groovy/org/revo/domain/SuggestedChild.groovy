@@ -1,5 +1,6 @@
 package org.revo.domain
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonView
 import org.revo.RevoView
 import org.springframework.data.annotation.Id
@@ -18,8 +19,10 @@ class SuggestedChild {
     int confidence
     @DBRef
     @JsonView(RevoView.SuggestedView.class)
+    @JsonBackReference
     Child suggested
     @DBRef
     @JsonView(RevoView.SuggestedView.class)
+    @JsonBackReference
     Child child
 }

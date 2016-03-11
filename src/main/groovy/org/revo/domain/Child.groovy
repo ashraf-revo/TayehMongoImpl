@@ -1,7 +1,13 @@
 package org.revo.domain
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonView
+import org.hibernate.validator.constraints.URL
 import org.revo.RevoView
+import org.revo.domain.RevoEnum.Gender
+import org.revo.domain.RevoEnum.State
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.geo.Point
 import org.springframework.data.mongodb.core.mapping.DBRef
@@ -17,29 +23,31 @@ class Child {
     String id
     @JsonView(RevoView.ChildView.class)
     String name
+    @URL
     @JsonView(RevoView.ChildView.class)
     String image
     @JsonView(RevoView.ChildView.class)
     String moreInfo
     @JsonView(RevoView.ChildView.class)
     Point addresses
-    @JsonView(RevoView.ChildView.class)
-    Point currentPalce
     @JsonView(RevoView.ChildPerson.class)
+    @JsonBackReference
     Person person
     @JsonView(RevoView.ChildView.class)
-    boolean state
+    State state
     @DBRef
     @JsonView(RevoView.ChildSuggested.class)
+    @JsonManagedReference
     Set<SuggestedChild> suggestedChild = new HashSet<>()
     @JsonView(RevoView.ChildView.class)
-    boolean gender
+    Gender gender
     @JsonView(RevoView.ChildView.class)
     int age
     @JsonView(RevoView.ChildView.class)
     String uid
     @JsonView(RevoView.ChildView.class)
     boolean founded
+    @CreatedDate
     @JsonView(RevoView.ChildView.class)
-    Date date = new Date()
+    Date createdDate
 }
