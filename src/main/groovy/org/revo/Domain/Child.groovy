@@ -1,12 +1,11 @@
-package org.revo.domain
+package org.revo.Domain
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonView
+import groovy.transform.Canonical
 import org.hibernate.validator.constraints.URL
-import org.revo.RevoView
-import org.revo.domain.RevoEnum.Gender
-import org.revo.domain.RevoEnum.State
+import org.revo.Domain.RevoEnum.Gender
+import org.revo.Domain.RevoEnum.State
+import org.revo.Util.RevoView
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.geo.Point
@@ -16,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 /**
  * Created by revo on 3/10/16.
  */
+@Canonical(excludes = ["suggestedChild", "person"])
 @Document
 class Child {
     @Id
@@ -30,14 +30,13 @@ class Child {
     String moreInfo
     @JsonView(RevoView.ChildView.class)
     Point addresses
+    @DBRef
     @JsonView(RevoView.ChildPerson.class)
-    @JsonBackReference
     Person person
     @JsonView(RevoView.ChildView.class)
     State state
     @DBRef
     @JsonView(RevoView.ChildSuggested.class)
-    @JsonManagedReference
     Set<SuggestedChild> suggestedChild = new HashSet<>()
     @JsonView(RevoView.ChildView.class)
     Gender gender

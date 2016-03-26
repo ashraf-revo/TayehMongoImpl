@@ -1,6 +1,6 @@
 package org.revo.Repository
 
-import org.revo.domain.Person
+import org.revo.Domain.Person
 import org.springframework.data.mongodb.repository.MongoRepository
 
 /**

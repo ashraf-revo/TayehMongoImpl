@@ -1,8 +1,9 @@
-package org.revo.domain
+package org.revo.Domain
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonView
-import org.revo.RevoView
+import groovy.transform.Canonical
+import org.revo.Util.RevoView
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 /**
  * Created by revo on 3/10/16.
  */
+@Canonical(excludes = ["suggested","child"])
 @Document
 class SuggestedChild {
     @Id
@@ -19,10 +21,8 @@ class SuggestedChild {
     int confidence
     @DBRef
     @JsonView(RevoView.SuggestedView.class)
-    @JsonBackReference
     Child suggested
     @DBRef
     @JsonView(RevoView.SuggestedView.class)
-    @JsonBackReference
     Child child
 }

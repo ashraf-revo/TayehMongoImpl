@@ -1,4 +1,4 @@
-package org.revo.domain
+package org.revo.Domain
 
 /**
  * Created by revo on 3/11/16.

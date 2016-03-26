@@ -1,10 +1,10 @@
-package org.revo.domain
+package org.revo.Domain
 
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.fasterxml.jackson.annotation.JsonView
+import groovy.transform.Canonical
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.URL
-import org.revo.RevoView
+import org.revo.Util.RevoView
 import org.springframework.data.annotation.Id
 import org.springframework.data.geo.Point
 import org.springframework.data.mongodb.core.mapping.DBRef
@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 /**
  * Created by revo on 3/10/16.
  */
+@Canonical(excludes = ["children"])
 @Document
 class Person {
     @Id
@@ -38,7 +39,6 @@ class Person {
     Point location
     @DBRef
     @JsonView(RevoView.PersonChild.class)
-    @JsonManagedReference
     Set<Child> children
     @JsonView(RevoView.PersonView.class)
     String queueName
